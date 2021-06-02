@@ -3,6 +3,9 @@
  leftWristY=0;
 rightWristX=0;
 righttWristY=0;
+scoreLeftWrist=0;
+scoreRightWrist=0;
+
  function preload() {
      song=loadSound("music.mp3");
  }
@@ -20,6 +23,18 @@ righttWristY=0;
  function draw() {
      image(video,0,0,500,500);
 
+     fill("#FF0000");
+     stroke("#FF0000");
+  if(scoreLeftWrist>0.2) {
+      circle(leftWristX,leftWristY,20);
+      NumberLeftWristX=Number(leftWristY);
+      remove_decimals=floor(NumberLeftWristX);
+      volume=remove_decimals/500;
+      document.getElementById("volume").innerHTML= "Volume = "+ volume;
+      song.setVolume(volume);
+  }
+     
+
  }
 
  function modelLoaded() {
@@ -33,6 +48,8 @@ righttWristY=0;
      leftWristY=results[0].pose.leftWrist.y;
      rightWristX=results[0].pose.rightWrist.x;
      rightWristY=results[0].pose.rightWrist.y;
+     scoreLeftWrist=results[0].pose.keypoints[9].score;
+     scoreRightWrist=results[0].pose.keypoints[10].score;
  }
 
  }
